@@ -4,12 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server/index.js",
+    "client": "cd client && npm run dev:client",
+    "dev:client": "vite",
+    "build": "cd client && vite build",
+    "preview": "cd client && vite preview",
+    "lint": "ce client && eslint ."
   },
   "dependencies": {
+    "concurrently": "^9.1.2",
+    "cors": "^2.8.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
