@@ -1,12 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const path = require('path')
-
-app.use(express.static(path.join(__dirname, '../client/dist')))
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+//app.use(express.static(path.join(__dirname, '../client/dist')))
+
 
 //Middleware
 
@@ -18,7 +18,7 @@ app.get('/', (req, res) =>{
 })
 
 app.get('/api/message', (res, req)=>{
-    console.log('Message is retrieved from backend')
+    //console.log('Message is retrieved from backend')
     res.json({message:'Message from backend'})
 })
 
