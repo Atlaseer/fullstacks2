@@ -1,7 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
-
+const path = require('path')
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -17,13 +17,13 @@ app.get('/', (req, res) =>{
     res.send('Server is running...')
 })
 
-app.get('/api/message', (res, req)=>{
+app.get('/api/message', (req, res)=>{
     //console.log('Message is retrieved from backend')
     res.json({message:'Message from backend'})
 })
 
 app.get('*', (req, res)=>{
-    res.sendFile(path.join(__dirname, '..client/dist/index.html'))
+    res.sendFile(path.join(__dirname, '../dist/index.html'))
 })
 
 app.listen(PORT, ()=>{
