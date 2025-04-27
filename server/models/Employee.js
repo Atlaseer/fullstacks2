@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const employeeSchema = new mongoose.Schema({
     employee_id: { type: String, required: true, unique: true },
@@ -7,4 +7,6 @@ const employeeSchema = new mongoose.Schema({
     hashed_password: { type: String}
 });
 
-module.exports = mongoose.model('Employee', employeeSchema)
+const Employee = mongoose.model('Employee', employeeSchema)
+
+export default Employee;

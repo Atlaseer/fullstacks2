@@ -1,6 +1,8 @@
 import express from 'express';
-const router = express.Router();
 import ProjectAssignment from '../models/ProjectAssignment.js';
+
+const router = express.Router();
+
 
 router.post('/', async (req, res)=>{
     try {

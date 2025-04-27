@@ -1,6 +1,8 @@
-const express = require('express');
+import express from 'express';
+import Project from '../models/Project.js';
+
 const router = express.Router();
-const Project = require('../models/Project');
+
 
 router.post('/', async (req, res) =>{
     try{
@@ -16,4 +18,4 @@ router.post('/', async (req, res) =>{
     }
 })
 
-module.exports = router;
+export default router;

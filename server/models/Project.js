@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const projectSchema = new mongoose.Schema({
     project_code: { type: String, required: true, unique: true },
@@ -6,4 +6,6 @@ const projectSchema = new mongoose.Schema({
     project_description: { type: String, required: true},
 })
 
-module.exports = mongoose.model('Project', projectSchema)
+const Project = mongoose.model('Project', projectSchema)
+
+export default Project;
