@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import ProjectAssignment from '../models/ProjectAssignment';
+import ProjectAssignment from '../models/ProjectAssignment.js';
 
 router.post('/', async (req, res)=>{
     try {
@@ -24,4 +24,4 @@ router.get('/', async (req, res) =>{
     }
 })
 
-module.exports = router;
+export default router;

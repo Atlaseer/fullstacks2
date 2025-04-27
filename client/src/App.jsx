@@ -1,9 +1,5 @@
 import Header from './Header.jsx'
 import './App.css'
-
-
-
-
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -14,10 +10,19 @@ function App() {
     const res = await fetch('http://localhost:3000/api/project_assignments');
     const json = await res.json();
     setData([...json].sort((a, b) => {
-      if (a[sortKey] < b[sortKey]) return -1;
-      if (a[sortKey] > b[sortKey]) return 1;
+      const aValue = getValue(a, sortKey);
+      const bValue = getValue(b, sortKey);
+      if (aValue < bValue) return -1;
+      if (aValue > bValue) return 1;
       return 0;
     }));
+  };
+
+  const getValue = (item, key) => {
+    if (key === 'employee.full_name') return item.employee?.full_name || '';
+    if (key === 'project.project_name') return item.project?.project_name || '';
+    if (key === 'start_date') return item.start_date;
+    return '';
   };
 
   useEffect(() => {
@@ -30,16 +35,16 @@ function App() {
     <table>
       <thead>
         <tr>
-          <th onClick={() => setSortKey('employee_id.full_name')}>Employee Name</th>
-          <th onClick={() => setSortKey('project_code.project_name')}>Project</th>
+          <th onClick={() => setSortKey('employee.full_name')}>Employee Name</th>
+          <th onClick={() => setSortKey('project.project_name')}>Project</th>
           <th onClick={() => setSortKey('start_date')}>Start Date</th>
         </tr>
       </thead>
       <tbody>
         {data.map((item, idx) => (
           <tr key={idx}>
-            <td>{item.employee_id.full_name}</td>
-            <td>{item.project_code.project_name}</td>
+            <td>{item.employee.full_name}</td>
+            <td>{item.project.project_name}</td>
             <td>{new Date(item.start_date).toLocaleDateString()}</td>
           </tr>
         ))}
