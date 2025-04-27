@@ -7,15 +7,21 @@ function App() {
   const [sortKey, setSortKey] = useState('start_date');
 
   const fetchData = async () => {
-    const res = await fetch('http://localhost:3000/api/project_assignments');
-    const json = await res.json();
-    setData([...json].sort((a, b) => {
-      const aValue = getValue(a, sortKey);
-      const bValue = getValue(b, sortKey);
-      if (aValue < bValue) return -1;
-      if (aValue > bValue) return 1;
-      return 0;
-    }));
+    try {
+      const res = await fetch('http://localhost:3000/api/project_assignments');
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      const json = await res.json();
+      setData([...json].sort((a, b) => {
+        const aValue = getValue(a, sortKey);
+        const bValue = getValue(b, sortKey);
+        if (aValue < bValue) return -1;
+        if (aValue > bValue) return 1;
+        return 0;
+      }));
+      console.log(data)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   const getValue = (item, key) => {

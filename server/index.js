@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import path from 'path';
 import dotenv from 'dotenv';
+import employeeRoute from './routes/employees.js';
 import projectAssignmentRoute from './routes/projectAssignments.js';
 
 dotenv.config();

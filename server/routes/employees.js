@@ -1,12 +1,12 @@
 import express from 'express';
-import Employee from '../models/Employee';
+import Employee from '../models/Employee.js';
 
 const router = express.Router();
 
 
 router.post('/', async (req, res) => {
     try {
-        const existing = await Employee.findOne({ employee_id: req.body.eomploye_id });
+        const existing = await Employee.findOne({ employee_id: req.body.employee_id });
         if(existing) return res.status(409).json({ message: "Employee already exists" })
 
         const employee = new Employee(req.body);
