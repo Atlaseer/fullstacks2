@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Header from './Header.jsx'
 import './App.css'
 
+
+
+
+import { useEffect, useState } from 'react';
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setData] = useState([]);
+  const [sortKey, setSortKey] = useState('start_date');
+
+  const fetchData = async () => {
+    const res = await fetch('http://localhost:3000/api/project_assignments');
+    const json = await res.json();
+    setData([...json].sort((a, b) => {
+      if (a[sortKey] < b[sortKey]) return -1;
+      if (a[sortKey] > b[sortKey]) return 1;
+      return 0;
+    }));
+  };
+
+  useEffect(() => {
+    fetchData();
+    const interval = setInterval(fetchData, 60000); // 1 minute
+    return () => clearInterval(interval);
+  }, [sortKey]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <table>
+      <thead>
+        <tr>
+          <th onClick={() => setSortKey('employee_id.full_name')}>Employee Name</th>
+          <th onClick={() => setSortKey('project_code.project_name')}>Project</th>
+          <th onClick={() => setSortKey('start_date')}>Start Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((item, idx) => (
+          <tr key={idx}>
+            <td>{item.employee_id.full_name}</td>
+            <td>{item.project_code.project_name}</td>
+            <td>{new Date(item.start_date).toLocaleDateString()}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 }
 
-export default App
+export default App;
