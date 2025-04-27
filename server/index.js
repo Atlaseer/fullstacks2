@@ -1,11 +1,33 @@
-﻿import express from "express";
-const app = express();
-const port = 3000;
+import express from 'express';
+import cors from 'cors';
+import path from 'path';
+import dotenv from 'dotenv';
+dotenv.config();
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+//app.use(express.static(path.join(__dirname, '../client/dist')));
+
+
+//Middleware
+
+app.use(cors());
+app.use(express.json());
+
+app.get('/', (req, res) =>{
+    res.send('Server is running...')
 })
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+app.get('/api/message', (req, res)=>{
+    //console.log('Message is retrieved from backend')
+    res.json({message:'Message from backend'})
+})
+
+//app.get('*', (req, res)=>{
+//    res.sendFile(path.join(__dirname, '../client/dist/index.html'))
+//})
+
+app.listen(PORT, ()=>{
+    console.log(`Server is running on port http://localhost:${PORT}`)
 });
