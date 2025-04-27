@@ -1,9 +1,11 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const Employee = require('./models/Employee')
-const Project = require('./models/Project')
-const ProjectAssignment = require('./models/ProjectAssignment')
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
+import Employee from './models/Employee.js';
+import Project from './models/Project.js';
+import ProjectAssignment from './models/ProjectAssignment.js';
+
+dotenv.config();
 
 const MONGO_URI = process.env.MONGO_URI;
 
