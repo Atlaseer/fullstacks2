@@ -20,8 +20,8 @@ router.get('/', async (req, res) => {
         console.log('Fetching project assignments...');
         
         const assignments = await ProjectAssignment.find()
-            .populate('employee') 
-            .populate('project'); 
+            .populate('employee', 'full_name employee_id email') 
+            .populate('project', 'project_name project_code project_description') 
         console.log(assignments);
         res.json(assignments);
     } catch (err) {
